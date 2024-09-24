@@ -3,7 +3,8 @@ import {
   tieneNumeros,
   tieneCaracteresEspeciales,
   tieneLongitudMinima,
-  noTieneNombreUsuario,
+  tieneNombreUsuario,
+  tienePalabrasComunes,
 } from "./motor.helpers";
 
 describe("tieneMayusculasYMinusculas", () => {
@@ -142,7 +143,7 @@ describe("noTieneNombreUsuario", () => {
 
     //Act
 
-    const result = noTieneNombreUsuario(usuario, password);
+    const result = tieneNombreUsuario(usuario, password);
 
     //Assert
 
@@ -159,13 +160,72 @@ describe("noTieneNombreUsuario", () => {
 
     //Act
 
-    const result = noTieneNombreUsuario(usuario, password);
+    const result = tieneNombreUsuario(usuario, password);
 
     //Assert
 
     expect(result).toEqual({
       esValida: false,
       error: "La clave no debe tener el nombre de usuario",
+    });
+  });
+});
+
+describe("noTienePalabrasComunes", () => {
+  it("Debería devolver true si NO tiene palabras comunes", () => {
+    //Arrange
+    const password = "C@m1la56";
+    const commonPasswords: string[] = [
+      "password",
+      "123456",
+      "qwerty",
+      "admin",
+      "letmein",
+      "welcome",
+      "monkey",
+      "sunshine",
+      "password1",
+      "123456789",
+      "football",
+      "iloveyou",
+      "1234567",
+    ];
+
+    //Act
+    const result = tienePalabrasComunes(password, commonPasswords);
+    //Assert
+
+    expect(result).toEqual({
+      esValida: true,
+    });
+  });
+
+  it("Debería devolver false si tiene palabras comunes", () => {
+    //Arrange
+    const password = "admin";
+    const commonPasswords: string[] = [
+      "password",
+      "123456",
+      "qwerty",
+      "admin",
+      "letmein",
+      "welcome",
+      "monkey",
+      "sunshine",
+      "password1",
+      "123456789",
+      "football",
+      "iloveyou",
+      "1234567",
+    ];
+
+    //Act
+    const result = tienePalabrasComunes(password, commonPasswords);
+    //Assert
+
+    expect(result).toEqual({
+      esValida: false,
+      error: "La clave no debe contener palabras comunes",
     });
   });
 });

@@ -99,20 +99,40 @@ export const tieneLongitudMinima = (clave: string): ValidacionClave => {
   return claveLongitudMinima;
 };
 
-export const noTieneNombreUsuario = ( 
-    nombreUsuario: string,
-    clave: string,
-  ): ValidacionClave => {
+export const tieneNombreUsuario = (
+  nombreUsuario: string,
+  clave: string
+): ValidacionClave => {
+  let claveSinNombreUsuario: ValidacionClave = {
+    esValida: true,
+  };
 
-    let claveSinNombreUsuario : ValidacionClave = {
-        esValida : true,
+  if (clave.includes(nombreUsuario)) {
+    claveSinNombreUsuario.esValida = false;
+    claveSinNombreUsuario.error = "La clave no debe tener el nombre de usuario";
+  }
+
+  return claveSinNombreUsuario;
+};
+
+export const tienePalabrasComunes = (
+  clave: string,
+  commonPasswords: string[]
+): ValidacionClave => {
+  let claveSinPalabrasComunes: ValidacionClave = {
+    esValida: true,
+  };
+
+  commonPasswords.some((cPassword) => {
+    let esPalabraComun = clave.includes(cPassword);
+    if (esPalabraComun) {
+      (claveSinPalabrasComunes.esValida = false),
+        (claveSinPalabrasComunes.error =
+          "La clave no debe contener palabras comunes");
     }
 
-    if(clave.includes(nombreUsuario)){
-        claveSinNombreUsuario.esValida = false;
-        claveSinNombreUsuario.error = "La clave no debe tener el nombre de usuario"
-    }
+    return esPalabraComun;
+  });
 
-    return claveSinNombreUsuario
-  
-  };// NO ME CONVENCE PORQUE SI NO ES EL NOMBRE EXACTO DA FALSE AUNQUE SI INCLUYA EL NOMBRE DE USUARIO. TIPO USUARIO : CAMILA23 CONTRASEÑA: CAMILA01
+  return claveSinPalabrasComunes;
+};
