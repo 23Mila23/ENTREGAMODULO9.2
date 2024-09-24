@@ -54,3 +54,33 @@ export const tieneNumeros = (clave: string): ValidacionClave => {
 
   return claveConNumeros;
 };
+
+export const tieneCaracteresEspeciales = (clave: string): ValidacionClave => {
+  let claveCaracteresEspeciales: ValidacionClave = {
+    esValida: false,
+    error: "La clave debe tener caracteres especiales",
+  };
+
+  const caracteres = clave.split("");
+
+  const hayCaracteresEspeciales = caracteres.some((caracter) => {
+    const caracterCodigoASCII = caracter.charCodeAt(0);
+    let caracterEspecial = false;
+    if (
+      (caracterCodigoASCII >= 33 && caracterCodigoASCII <= 47) ||
+      (caracterCodigoASCII >= 58 && caracterCodigoASCII <= 64) ||
+      (caracterCodigoASCII >= 91 && caracterCodigoASCII <= 96) ||
+      (caracterCodigoASCII >= 123 && caracterCodigoASCII <= 126)
+    ) {
+      caracterEspecial = true;
+    }
+    return caracterEspecial;
+  });
+
+  if (hayCaracteresEspeciales) {
+    claveCaracteresEspeciales.esValida = true;
+    delete claveCaracteresEspeciales.error;
+  }
+
+  return claveCaracteresEspeciales;
+};

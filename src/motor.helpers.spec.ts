@@ -1,4 +1,8 @@
-import { tieneMayusculasYMinusculas, tieneNumeros } from "./motor.helpers";
+import {
+  tieneMayusculasYMinusculas,
+  tieneNumeros,
+  tieneCaracteresEspeciales,
+} from "./motor.helpers";
 
 describe("tieneMayusculasYMinusculas", () => {
   it("debería devolver true si contiene mayúsculas y minúsculas", () => {
@@ -48,6 +52,37 @@ describe("tieneNumeros", () => {
     expect(result).toEqual({
       esValida: false,
       error: "La clave debe tener números",
+    });
+  });
+});
+
+describe("tieneCaracteresEspeciales", () => {
+  it("Debería devolver true si contiene caracteres especiales", () => {
+    //Arrange
+    const password = "H@la!";
+
+    //Act
+    const result = tieneCaracteresEspeciales(password);
+
+    //Assert
+
+    expect(result).toEqual({
+      esValida: true,
+    });
+  });
+
+  it("Debería devolver false si NO contiene caracteres especiales", () => {
+    //Arrange
+    const password = "Hola";
+
+    //Act
+    const result = tieneCaracteresEspeciales(password);
+
+    //Assert
+
+    expect(result).toEqual({
+      esValida: false,
+      error: "La clave debe tener caracteres especiales",
     });
   });
 });
