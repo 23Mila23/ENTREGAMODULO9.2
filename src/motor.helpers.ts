@@ -1,56 +1,56 @@
-import{ValidacionClave} from "./modelo"
+import { ValidacionClave } from "./modelo";
 
 export const tieneMayusculasYMinusculas = (clave: string): ValidacionClave => {
-
-    let hayMayusculas= false;
-    let hayMinusculas = false;
-    const calveSinAcentos = clave.replaceAll("á", "a").replaceAll("é","e").replaceAll("í","i").replaceAll("ó","o").replaceAll("ú","u")
-    const caracteres = calveSinAcentos.split("");
-    caracteres.forEach((caracter) => { 
-        const numeroCaracterASCII = caracter.charCodeAt(0);
-        if(numeroCaracterASCII >= 65 && numeroCaracterASCII <= 90){
-            hayMayusculas = true;
-        }
-
-        if(numeroCaracterASCII >= 97 && numeroCaracterASCII <= 122){
-            hayMinusculas = true;
-        }
-    })
-
-    let validarClave : ValidacionClave = {
-        esValida : false,
-        error: "La clave debe de tener mayúsculas y minúsculas",
+  let hayMayusculas = false;
+  let hayMinusculas = false;
+  const calveSinAcentos = clave
+    .replaceAll("á", "a")
+    .replaceAll("é", "e")
+    .replaceAll("í", "i")
+    .replaceAll("ó", "o")
+    .replaceAll("ú", "u");
+  const caracteres = calveSinAcentos.split("");
+  caracteres.forEach((caracter) => {
+    const numeroCaracterASCII = caracter.charCodeAt(0);
+    if (numeroCaracterASCII >= 65 && numeroCaracterASCII <= 90) {
+      hayMayusculas = true;
     }
 
-    if (hayMayusculas && hayMinusculas){
-        validarClave.esValida = true;
-        delete validarClave.error;
+    if (numeroCaracterASCII >= 97 && numeroCaracterASCII <= 122) {
+      hayMinusculas = true;
     }
+  });
 
-
-    return validarClave
+  let validarClave: ValidacionClave = {
+    esValida: false,
+    error: "La clave debe de tener mayúsculas y minúsculas",
   };
 
-  export const tieneNumeros = (clave: string): ValidacionClave => {
-    let claveConNumeros : ValidacionClave = {
-        esValida : false,
-        error : "La clave debe tener números"
-    }
+  if (hayMayusculas && hayMinusculas) {
+    validarClave.esValida = true;
+    delete validarClave.error;
+  }
 
-   const caracteres = clave.split("");
+  return validarClave;
+};
 
-   const tieneNumeros =  caracteres.some((caracter) => {
+export const tieneNumeros = (clave: string): ValidacionClave => {
+  let claveConNumeros: ValidacionClave = {
+    esValida: false,
+    error: "La clave debe tener números",
+  };
 
-    const isANumber = parseInt(caracter) || caracter === "0"
-    return isANumber
-   })
+  const caracteres = clave.split("");
 
-   if(tieneNumeros){
+  const tieneNumeros = caracteres.some((caracter) => {
+    const isANumber = parseInt(caracter) || caracter === "0";
+    return isANumber;
+  });
+
+  if (tieneNumeros) {
     claveConNumeros.esValida = true;
-    delete claveConNumeros.error
-   }
+    delete claveConNumeros.error;
+  }
 
-    return claveConNumeros
-
-  };
-
+  return claveConNumeros;
+};
