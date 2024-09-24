@@ -1,5 +1,4 @@
-
 export interface ValidacionClave {
-    esValida: boolean;
-    error?: string;
-  }
+  esValida: boolean;
+  error?: string;
+}
