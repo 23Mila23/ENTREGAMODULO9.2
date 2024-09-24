@@ -84,3 +84,17 @@ export const tieneCaracteresEspeciales = (clave: string): ValidacionClave => {
 
   return claveCaracteresEspeciales;
 };
+
+export const tieneLongitudMinima = (clave: string): ValidacionClave => {
+  let claveLongitudMinima: ValidacionClave = {
+    esValida: false,
+    error: "La clave debe tener una longitud mínima de 8 caracteres",
+  };
+
+  if (clave.length >= 8) {
+    claveLongitudMinima.esValida = true;
+    delete claveLongitudMinima.error;
+  }
+
+  return claveLongitudMinima;
+};

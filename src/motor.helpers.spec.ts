@@ -2,6 +2,7 @@ import {
   tieneMayusculasYMinusculas,
   tieneNumeros,
   tieneCaracteresEspeciales,
+  tieneLongitudMinima,
 } from "./motor.helpers";
 
 describe("tieneMayusculasYMinusculas", () => {
@@ -83,6 +84,50 @@ describe("tieneCaracteresEspeciales", () => {
     expect(result).toEqual({
       esValida: false,
       error: "La clave debe tener caracteres especiales",
+    });
+  });
+});
+
+describe("tieneLongitudMinima", () => {
+  it("Debería devolver true si la longitud es mayor  a 8", () => {
+    //Arrange
+    const password = "123456789";
+    //Act
+
+    const result = tieneLongitudMinima(password);
+
+    //Assert
+
+    expect(result).toEqual({
+      esValida: true,
+    });
+  });
+  it("Debería devolver true si la longitud es igual a 8", () => {
+    //Arrange
+    const password = "12345678";
+    //Act
+
+    const result = tieneLongitudMinima(password);
+
+    //Assert
+
+    expect(result).toEqual({
+      esValida: true,
+    });
+  });
+
+  it("Debería devolver false si la longitud NO es mayor o igual a 8", () => {
+    //Arrange
+    const password = "123456";
+    //Act
+
+    const result = tieneLongitudMinima(password);
+
+    //Assert
+
+    expect(result).toEqual({
+      esValida: false,
+      error: "La clave debe tener una longitud mínima de 8 caracteres",
     });
   });
 });
