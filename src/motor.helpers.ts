@@ -31,3 +31,26 @@ export const tieneMayusculasYMinusculas = (clave: string): ValidacionClave => {
     return validarClave
   };
 
+  export const tieneNumeros = (clave: string): ValidacionClave => {
+    let claveConNumeros : ValidacionClave = {
+        esValida : false,
+        error : "La clave debe tener números"
+    }
+
+   const caracteres = clave.split("");
+
+   const tieneNumeros =  caracteres.some((caracter) => {
+
+    const isANumber = parseInt(caracter) || caracter === "0"
+    return isANumber
+   })
+
+   if(tieneNumeros){
+    claveConNumeros.esValida = true;
+    delete claveConNumeros.error
+   }
+
+    return claveConNumeros
+
+  };
+
