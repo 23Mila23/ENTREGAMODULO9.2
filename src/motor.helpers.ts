@@ -98,3 +98,21 @@ export const tieneLongitudMinima = (clave: string): ValidacionClave => {
 
   return claveLongitudMinima;
 };
+
+export const noTieneNombreUsuario = ( 
+    nombreUsuario: string,
+    clave: string,
+  ): ValidacionClave => {
+
+    let claveSinNombreUsuario : ValidacionClave = {
+        esValida : true,
+    }
+
+    if(clave.includes(nombreUsuario)){
+        claveSinNombreUsuario.esValida = false;
+        claveSinNombreUsuario.error = "La clave no debe tener el nombre de usuario"
+    }
+
+    return claveSinNombreUsuario
+  
+  };// NO ME CONVENCE PORQUE SI NO ES EL NOMBRE EXACTO DA FALSE AUNQUE SI INCLUYA EL NOMBRE DE USUARIO. TIPO USUARIO : CAMILA23 CONTRASEÑA: CAMILA01

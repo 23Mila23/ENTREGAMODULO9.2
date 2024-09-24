@@ -3,6 +3,7 @@ import {
   tieneNumeros,
   tieneCaracteresEspeciales,
   tieneLongitudMinima,
+  noTieneNombreUsuario,
 } from "./motor.helpers";
 
 describe("tieneMayusculasYMinusculas", () => {
@@ -128,6 +129,43 @@ describe("tieneLongitudMinima", () => {
     expect(result).toEqual({
       esValida: false,
       error: "La clave debe tener una longitud mínima de 8 caracteres",
+    });
+  });
+});
+
+describe("noTieneNombreUsuario", () => {
+  it("Debería devolver true si la contraseña NO contiene el nombre de usuario", () => {
+    //Arrange
+
+    const password = "patata01";
+    const usuario = "camila";
+
+    //Act
+
+    const result = noTieneNombreUsuario(usuario, password);
+
+    //Assert
+
+    expect(result).toEqual({
+      esValida: true,
+    });
+  });
+
+  it("Debería devolver false si la contraseña contiene el nombre de usuario", () => {
+    //Arrange
+
+    const password = "camila01";
+    const usuario = "camila";
+
+    //Act
+
+    const result = noTieneNombreUsuario(usuario, password);
+
+    //Assert
+
+    expect(result).toEqual({
+      esValida: false,
+      error: "La clave no debe tener el nombre de usuario",
     });
   });
 });
